@@ -1,0 +1,6 @@
+@RMS.Host_HostAddress = http://localhost:5159
+
+GET {{RMS.Host_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

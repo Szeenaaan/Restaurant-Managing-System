@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="RMS.Application/RMS.Application.csproj" />
+  <Project Path="RMS.Domain/RMS.Domain.csproj" />
+  <Project Path="RMS.Host/RMS.Host.csproj" />
+  <Project Path="RMS.Infrastructure/RMS.Infrastructure.csproj" />
+  <Project Path="RMS.Orchestration/RMS.Orchestration.csproj" />
+  <Project Path="RMS.Persistence/RMS.Persistence.csproj" />
+  <Project Path="RMS.Repositories/RMS.Repositories.csproj" />
+  <Project Path="RMS.Services/RMS.Services.csproj" />
+</Solution>
