@@ -6,4 +6,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RMS.Application\RMS.Application.csproj" />
+    <ProjectReference Include="..\RMS.Infrastructure\RMS.Infrastructure.csproj" />
+    <ProjectReference Include="..\RMS.Orchestration\RMS.Orchestration.csproj" />
+    <ProjectReference Include="..\RMS.Repositories\RMS.Repositories.csproj" />
+    <ProjectReference Include="..\RMS.Services\RMS.Services.csproj" />
+  </ItemGroup>
+
 </Project>

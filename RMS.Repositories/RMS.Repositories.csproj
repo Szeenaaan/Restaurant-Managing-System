@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RMS.Application\RMS.Application.csproj" />
+    <ProjectReference Include="..\RMS.Persistence\RMS.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

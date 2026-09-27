@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RMS.Application\RMS.Application.csproj" />
+    <ProjectReference Include="..\RMS.Infrastructure\RMS.Infrastructure.csproj" />
+    <ProjectReference Include="..\RMS.Services\RMS.Services.csproj" />
+  </ItemGroup>
+
 </Project>
