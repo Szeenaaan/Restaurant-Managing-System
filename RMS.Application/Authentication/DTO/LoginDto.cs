@@ -1,4 +1,4 @@
-﻿namespace RMS.Application.Authentication.DTOs
+﻿namespace RMS.Application.Authentication.DTO
 {
     public class LoginDto
     {

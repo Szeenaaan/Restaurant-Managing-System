@@ -12,6 +12,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Roles> Roles { get; set; }
 
+    public DbSet<Category> Categories { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -88,6 +90,42 @@ public class AppDbContext : DbContext
             entity.Property(x => x.UpdatedBy).IsRequired(false);
 
             entity.HasOne(x => x.Role).WithMany().HasForeignKey(x => x.RoleId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(x => x.Id);
+
+            entity.Property(x => x.Id).UseIdentityByDefaultColumn();
+
+            entity.Property(x => x.CategoryName).IsRequired().HasMaxLength(100);
+
+            entity.Property(x => x.CategoryCode).IsRequired().HasMaxLength(50);
+
+            entity.HasIndex(x => x.CategoryName);
+
+            entity.HasIndex(x => x.CategoryCode).IsUnique();
+
+            entity.Property(x => x.Description)
+                .HasMaxLength(250);
+
+            entity.Property(x => x.DisplayImage).HasMaxLength(255);
+
+            entity.Property(x => x.SortOrder).IsRequired();
+
+            entity.Property(x => x.IsActive).IsRequired();
+
+            entity.Property(x => x.PresentStatus).IsRequired().HasMaxLength(50);
+
+            entity.Property(x => x.CreatedBy).IsRequired(false);
+
+            entity.Property(x => x.UpdatedBy).IsRequired(false);
+
+            entity.Property(x => x.Version).IsRequired();
+
+            entity.HasOne<User>().WithMany().HasForeignKey(x => x.CreatedBy).OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne<User>().WithMany().HasForeignKey(x => x.UpdatedBy).OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

@@ -1,19 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace RMS.Application.Helpers;
+namespace RMS.Application.Helpers.JwtHelper;
 
-public class JwtHelper
+public static class JwtHelper
 {
-    private string Key = "Kingofkinginkinglandofnewsintheislandofgold";
-    private string Issuer = "RMS";
-    private string Audience = "RMS";
-    private int ExpiryDays = 365;
+    private static string Key = "Kingofkinginkinglandofnewsintheislandofgold";
+    private static string Issuer = "RMS";
+    private static string Audience = "RMS";
+    private static int ExpiryDays = 365;
 
-    public string GenerateToken(int userId, string username)
+    public static string GenerateToken(int userId, string username)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
 
@@ -36,7 +35,7 @@ public class JwtHelper
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public TokenValidationParameters GetTokenValidationParameters()
+    public static TokenValidationParameters GetTokenValidationParameters()
     {
         return new TokenValidationParameters
         {
@@ -55,16 +54,16 @@ public class JwtHelper
         };
     }
 
-    public int? GetUserId(ClaimsPrincipal user)
+    public static int GetUserId(ClaimsPrincipal user)
     {
-        var userId = user.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+        var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (int.TryParse(userId, out var id))
         {
             return id;
         }
 
-        return null;
+        return 0;
     }
 }
 

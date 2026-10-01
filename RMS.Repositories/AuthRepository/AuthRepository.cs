@@ -1,6 +1,6 @@
-﻿using RMS.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.EntityFrameworkCore;
+using RMS.Application.Authentication.DTO;
+using RMS.Persistence;
 
 namespace RMS.Repositories.AuthRepository
 {
@@ -36,6 +36,20 @@ namespace RMS.Repositories.AuthRepository
         {
             await _db.Users.AddAsync(user);
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<List<GetAllDto>> GetAllAsync()
+        {
+            return await _db.Users
+                .Select(user => new GetAllDto
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    RoleId = user.RoleId,
+                    RoleName = user.Role!.Name
+                })
+                .ToListAsync();
         }
     }
 }

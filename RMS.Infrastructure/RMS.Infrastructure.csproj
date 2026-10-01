@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RMS.Application\RMS.Application.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -19,8 +19,13 @@
     <ProjectReference Include="..\RMS.Application\RMS.Application.csproj" />
     <ProjectReference Include="..\RMS.Infrastructure\RMS.Infrastructure.csproj" />
     <ProjectReference Include="..\RMS.Orchestration\RMS.Orchestration.csproj" />
+    <ProjectReference Include="..\RMS.Persistence\RMS.Persistence.csproj" />
     <ProjectReference Include="..\RMS.Repositories\RMS.Repositories.csproj" />
     <ProjectReference Include="..\RMS.Services\RMS.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

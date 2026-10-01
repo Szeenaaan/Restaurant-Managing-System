@@ -1,7 +1,11 @@
-﻿using RMS.Application.Helpers;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RMS.Application.Helpers.IFileStorage;
+using RMS.Application.Helpers.JwtHelper;
+using RMS.Infrastructure.FileStorage;
 using RMS.Repositories.AuthRepository;
+using RMS.Repositories.CategoryRepository;
 using RMS.Services.AuthService;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RMS.Services.CategoryService;
 
 namespace RMS.Host.DI_Extentions
 {
@@ -10,25 +14,28 @@ namespace RMS.Host.DI_Extentions
         public static IServiceCollection InjectionFile(this IServiceCollection services)
         {
             // Helpers
-            services.AddSingleton<JwtHelper>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
            {
-               var jwtHelper = new JwtHelper();
-               options.TokenValidationParameters = jwtHelper.GetTokenValidationParameters();
+               options.TokenValidationParameters = JwtHelper.GetTokenValidationParameters();
            });
 
             services.AddAuthorization();
 
             // Repositories
             services.AddScoped<AuthRepository>();
+            services.AddScoped<CategoryRepository>();
 
             // Services
             services.AddScoped<AuthService>();
+            services.AddScoped<CategoryService>();
 
             // Orchestrations
 
+            //Infrastructure
+            services.AddScoped<IFileStorage, FileStorageHelper>();
             return services;
+
         }
     }
 }

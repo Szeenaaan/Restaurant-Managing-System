@@ -1,18 +1,18 @@
-﻿using RMS.Application.Authentication.DTOs;
-using RMS.Application.Helpers;
+﻿using RMS.Application.Authentication.DTO;
+using RMS.Application.Helpers.ResponseHelpers;
 using RMS.Persistence;
 using RMS.Repositories.AuthRepository;
+using RMS.Application.Helpers.JwtHelper;
 namespace RMS.Services.AuthService
 {
     public class AuthService
     {
         private readonly AuthRepository _authRepository;
-        private readonly JwtHelper _jwtHelper;
+     
 
-        public AuthService(AuthRepository authRepository, JwtHelper jwtHelper)
+        public AuthService(AuthRepository authRepository)
         {
             _authRepository = authRepository;
-            _jwtHelper = jwtHelper;
         }
         public async Task<LoginResponseDto> LoginAsync(LoginDto dto)
         {
@@ -45,7 +45,7 @@ namespace RMS.Services.AuthService
                 return new LoginResponseDto { Success = false, StatusCode = 401, Message = "Invalid email or password" };
             }
 
-            var token = _jwtHelper.GenerateToken(user.Id, user.Username);
+            var token = JwtHelper.GenerateToken(user.Id, user.Username);
 
             return new LoginResponseDto
             {
@@ -102,37 +102,24 @@ namespace RMS.Services.AuthService
 
             await _authRepository.CreateAsync(user);
 
-            return new ResponseDto { Success = true, StatusCode = 201, Message = "User  Created successfully." };
+            return new ResponseDto { Success = true, StatusCode = 201, Message = "Account Created successfully." };
+        }
+
+        public async Task<ApiResponseDto<List<GetAllDto>>> GetAllAsync()
+        {
+            var users = await _authRepository.GetAllAsync();
+          
+            return new ApiResponseDto<List<GetAllDto>>
+            {
+                Status = true,
+                StatusCode = 200,
+                Message = "Users retrieved successfully.",
+                Data = users
+            };
         }
 
     }
 }
 
-public class LoginResponseDto
-{
-    public bool Success { get; set; }
 
-    public int StatusCode { get; set; }
-
-    public string? Message { get; set; }
-
-    public string? Token { get; set; }
-}
-
-public class CreateUserDto
-{
-    public string Username { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
-    public int RoleId { get; set; }
-}
-
-public class ResponseDto
-{
-    public bool Success { get; set; }
-
-    public int StatusCode { get; set; }
-
-    public string Message { get; set; } = string.Empty;
-}
 
